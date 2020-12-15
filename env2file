@@ -3,7 +3,9 @@
 set -eu
 
 log() {
-	[ "${ENV2FILE_VERBOSE-}" = 1 ] && echo >&2 "$1"
+	if [ "${ENV2FILE_VERBOSE-}" = 1 ]; then
+		echo >&2 "$1"
+	fi
 }
 
 if [ "${1-}" = "-v" ] || [ "${1-}" = "--verbose" ]; then
