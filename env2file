@@ -17,5 +17,10 @@ if [ -z "${ENV2FILE_CONTENT-}" ] && [ -z "${ENV2FILE_TO-}" ]; then
 	exit
 fi
 
+if [ "${ENV2FILE_CONTENT-}" ] && [ -z "${ENV2FILE_TO-}" ]; then
+	echo >&2 'ENV2FILE_CONTENT defined while ENV2FILE_TO not defined. Please specify environment variable ENV2FILE_TO for destination file.'
+	exit 1
+fi
+
 echo -n "$ENV2FILE_CONTENT" > "$ENV2FILE_TO"
 log "Written to $ENV2FILE_TO"
