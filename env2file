@@ -2,8 +2,18 @@
 
 set -eu
 
+log() {
+	[ "${ENV2FILE_VERBOSE-}" = 1 ] && echo >&2 "$1"
+}
+
+if [ "${1-}" = "-v" ] || [ "${1-}" = "--verbose" ]; then
+	ENV2FILE_VERBOSE=1
+fi
+
 if [ -z "${ENV2FILE_CONTENT-}" ] && [ -z "${ENV2FILE_TO-}" ]; then
+	log 'Both $ENV2FILE_CONTENT and $ENV2FILE_TO are empty. Do nothing.'
 	exit
 fi
 
 echo -n "$ENV2FILE_CONTENT" > "$ENV2FILE_TO"
+log "Written to $ENV2FILE_TO"
