@@ -23,8 +23,8 @@ if [ "${ENV2FILE_CONTENT-}" ] && [ -z "${ENV2FILE_TO-}" ]; then
 fi
 
 if [ -z "${ENV2FILE_CONTENT-}" ]; then
-	log "Writing empty file $ENV2FILE_TO"
+	log "Writing empty file $(realpath "$ENV2FILE_TO")"
 fi
 
 echo -n "${ENV2FILE_CONTENT-}" > "$ENV2FILE_TO"
-log "Written to $ENV2FILE_TO"
+log "Written to $(realpath "$ENV2FILE_TO")"
