@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eu
+
+echo -n "$ENV2FILE_CONTENT" > "$ENV2FILE_TO"
