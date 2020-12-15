@@ -2,4 +2,8 @@
 
 set -eu
 
+if [ -z "${ENV2FILE_CONTENT-}" ] && [ -z "${ENV2FILE_TO-}" ]; then
+	exit
+fi
+
 echo -n "$ENV2FILE_CONTENT" > "$ENV2FILE_TO"
