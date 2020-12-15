@@ -22,6 +22,8 @@ if [ "${ENV2FILE_CONTENT-}" ] && [ -z "${ENV2FILE_TO-}" ]; then
 	exit 1
 fi
 
+mkdir -p "$(dirname "$ENV2FILE_TO")"
+
 if [ -z "${ENV2FILE_CONTENT-}" ]; then
 	log "Writing empty file $(realpath "$ENV2FILE_TO")"
 fi
