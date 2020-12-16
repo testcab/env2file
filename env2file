@@ -8,9 +8,17 @@ log() {
 	fi
 }
 
-if [ "${1-}" = "-v" ] || [ "${1-}" = "--verbose" ]; then
-	ENV2FILE_VERBOSE=1
-fi
+while [ "${1-}" ]; do
+	case "$1" in
+		-n|--no-clobber)
+			ENV2FILE_NOCLOBBER=1
+			;;
+		-v|--verbose)
+			ENV2FILE_VERBOSE=1
+			;;
+	esac
+	shift
+done
 
 if [ -z "${ENV2FILE_CONTENT-}" ] && [ -z "${ENV2FILE_TO-}" ]; then
 	log 'Both $ENV2FILE_CONTENT and $ENV2FILE_TO are empty. Do nothing.'
@@ -23,6 +31,11 @@ if [ "${ENV2FILE_CONTENT-}" ] && [ -z "${ENV2FILE_TO-}" ]; then
 fi
 
 mkdir -p "$(dirname "$ENV2FILE_TO")"
+
+if [ "${ENV2FILE_NOCLOBBER-}" = 1 ] && [ -e "$ENV2FILE_TO" ]; then
+	log '--no-clobber specified. Not overwriting existing file.'
+	exit
+fi
 
 if [ -z "${ENV2FILE_CONTENT-}" ]; then
 	log "Writing empty file $(realpath "$ENV2FILE_TO")"

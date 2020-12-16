@@ -7,6 +7,8 @@ If both `$ENV2FILE_CONTENT` and `$ENV2FILE_TO` are empty, nothing will be done.
 
 Use arg `-v` or `--verbose`, or environment variable `ENV2FILE_VERBOSE=1` to show logs of `env2file`.
 
+Use arg `-n` or `--no-clobber`, or environment variable `ENV2FILE_NOCLOBBER=1` to not overwrite an existing file.
+
 Note that `$ENV2FILE_CONTENT` can be unset or empty to write an empty file.
 
 
@@ -22,6 +24,10 @@ ENV2FILE_CONTENT=$'[rebase]\n\tautoStash = true\n' ENV2FILE_TO=~/.gitconfig ./en
 
 # Create an empty file in a not yet created directory
 ENV2FILE_TO=build/.gitkeep ./env2file
-```
 
-To show verbose logging of *env2file*, add `-v` to the end of the command.
+# Do nothing and be verbose.
+./env2file -v
+
+# Write file only if it's not existent
+ENV2FILE_CONTENT=-L ENV2FILE_TO=~/.curlrc ./env2file --no-clobber
+```
